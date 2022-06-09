@@ -1,0 +1,24 @@
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer class="example-sidenav" mode="side" opened>
+    <mat-list>
+      <mat-list-item style="cursor: pointer;" [routerLink]="['/admin/users']">
+        <mat-icon>people</mat-icon>
+        <mat-label class="ml-2">Users</mat-label>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item style="cursor: pointer;" [routerLink]="['/admin/categories']">
+        <mat-icon>bookmarks</mat-icon>
+        <mat-label class="ml-2">Category</mat-label>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item style="cursor: pointer;" [routerLink]="['/admin/products']">
+        <mat-icon>redeem</mat-icon>
+        <mat-label class="ml-2">Product</mat-label>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
+  </mat-drawer>
+  <mat-drawer-content class="pt-4">
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

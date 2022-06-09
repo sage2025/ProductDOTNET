@@ -1,0 +1,32 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span [routerLink]="['/']" style="cursor: pointer;">GalleryApp</span>
+  <span class="navbar-spacer"></span>
+  <button mat-button *ngIf="userService.loggedInUser != null && userService.loggedInUser.isAdmin === true" matTooltip="Admin panel" [routerLink]="['/admin']">
+    <mat-icon>settings_suggest</mat-icon>
+    <mat-label>Admin panel</mat-label>
+  </button>
+  <button mat-icon-button class="example-icon favorite-icon" [routerLink]="['/order']" *ngIf="userService.loggedInUser != null" aria-label="Example icon-button with heart icon" matTooltip="My Cart">
+    <mat-icon matBadge="{{ userService.loggedInUser.order.length }}" matBadgeColor="accent">shopping_cart</mat-icon>
+  </button>
+  <button mat-button class="example-icon" *ngIf="userService.loggedInUser == null" matTooltip="Login" [routerLink]="['/auth/signin']">
+    <mat-icon>person</mat-icon> <mat-label>Login</mat-label>
+  </button>
+  <button mat-button *ngIf="userService.loggedInUser != null" [matMenuTriggerFor]="menu">
+    <mat-icon>account_circle</mat-icon>
+    <mat-label>{{ userService.loggedInUser.userName }}</mat-label>
+    <mat-icon>arrow_drop_down</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item [routerLink]="['/profile']">
+      <mat-icon>manage_accounts</mat-icon>
+      <span>Your Profile</span>
+    </button>
+    <button mat-menu-item (click)="onLogout()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>

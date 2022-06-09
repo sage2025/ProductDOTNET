@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>{{ data.type }} Category</h1>
+<form (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Category Name</mat-label>
+      <input type="text" matInput [formControl]="name" [ngModel]="data.category.name" *ngIf="data.type == 'Edit'">
+      <input type="text" matInput [formControl]="name" *ngIf="data.type == 'New'">
+      <mat-error *ngIf="name.hasError('required')">
+        Category Name is <b>required</b>.
+      </mat-error>
+      <!-- <mat-error *ngIf="name.hasError('has_token') === null">
+        Category Name has already token.
+      </mat-error> -->
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions class="pull-right mt-2">
+    <button mat-raised-button color="warn" type="submit">
+      <mat-icon>save</mat-icon>  Save
+    </button>
+    <button mat-button mat-dialog-close="no">Close</button>
+  </div>
+</form>

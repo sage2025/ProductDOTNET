@@ -1,0 +1,9 @@
+.sign-form {
+  min-width: 50px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.sign-full-width {
+  width: 100%;
+}

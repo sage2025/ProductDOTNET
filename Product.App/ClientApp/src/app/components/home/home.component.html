@@ -1,0 +1,56 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-3">
+      <mat-card>
+        <mat-card-title>Search</mat-card-title>
+        <mat-divider insert></mat-divider>
+        <mat-card-content class="mt-4">
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Category</mat-label>
+            <mat-select [formControl]="categories" (selectionChange)="onSearchByCategory($event)">
+              <mat-option value="0">All</mat-option>
+              <mat-option *ngFor="let category of categoryList" [value]="category.id">{{category.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <mat-label>Product Name</mat-label>
+            <input type="text" matInput [(ngModel)]="productKey" (change)="onSearchByProduct(productKey)">
+            <mat-icon matSuffix>redeem</mat-icon>
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <mat-label>Min price</mat-label>
+            <input type="number" matInput [(ngModel)]="minPrice" (change)="onSearchByMinPrice(minPrice)" min="0">
+            <span matSuffix>$</span>
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <mat-label>Max price</mat-label>
+            <input type="number" matInput [(ngModel)]="maxPrice" (change)="onSearchByMaxPrice(maxPrice)" min="0">
+            <span matSuffix>$</span>
+          </mat-form-field>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-9">
+      <div class="row" *ngIf="products.length > 0">
+        <div class="col-4 mb-4" *ngFor="let product of products">
+          <mat-card class="example-card">
+            <img mat-card-image src="{{ product.imageUrl }}" alt="{{ product.name }}">
+            <mat-card-content>
+              <h5 class="text-danger">{{ product.name }}</h5>
+              <mat-icon class="text-primary" style="font-size: 16px;">loyalty</mat-icon><mat-label class="text-primary"><b>{{ product.catName }}</b></mat-label> <span style="float: right;"><b class="text-primary">{{ product.price }}</b>$</span>
+            </mat-card-content>
+            <mat-card-actions class="text-center">
+              <button mat-raised-button color="primary" (click)="onAddCart(product)"><mat-icon>shopping_cart</mat-icon> Add to cart</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+      <div *ngIf="products.length === 0" style="margin-top: 250px;">
+        <h3 class="text-danger text-center">No matching products.</h3>
+      </div>
+      <div *ngIf="isLoadingData" class="loading-overlay">
+        <mat-spinner></mat-spinner>
+      </div>
+    </div>
+  </div>
+</div>

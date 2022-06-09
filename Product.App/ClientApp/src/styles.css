@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+code {
+  color: #e01a76;
+}
+
+table {
+  width: 100%;
+}
+
+.pull-right {
+  float: right;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.authentication-form {
+  width: 100%;
+}
+
+.sign-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.full-width {
+  width: 100%;
+}
+.loading-overlay {
+  position       : absolute;
+  top            : 0;
+  left           : 0;
+  bottom         : 0;
+  right          : 0;
+  background     : rgba(0, 0, 0, 0.15);
+  z-index        : 1;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+}
+body {
+  background-color: #e1e1e1!important;
+}

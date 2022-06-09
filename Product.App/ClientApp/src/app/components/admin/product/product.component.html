@@ -1,0 +1,88 @@
+<div>
+  <h3 class="text-center">Product</h3>
+  <div class="mat-elevation-z8" style="margin: 2%;">
+    <div *ngIf="isLoadingData" class="loading-overlay">
+      <mat-spinner></mat-spinner>
+    </div>
+    <div class="p-2">
+      <mat-form-field appearance="fill" class="mr-1">
+        <mat-label>Category</mat-label>
+        <mat-select (selectionChange)="onSearchByCategory($event)">
+          <mat-option value="0">All</mat-option>
+          <mat-option [value]="category.id" *ngFor="let category of categories">
+            {{ category.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="example-form-field mr-1" appearance="fill">
+        <mat-label>Search</mat-label>
+        <input matInput type="text" [(ngModel)]="value" (change)="onSearchByProduct(value)">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      <mat-form-field class="example-form-field mr-1" appearance="fill">
+        <mat-label>Min price</mat-label>
+        <input matInput type="text" [(ngModel)]="minPrice" (change)="onSearchByMinPrice(minPrice)">
+        <span matSuffix>$</span>
+      </mat-form-field>
+      <mat-form-field class="example-form-field" appearance="fill">
+        <mat-label>Max price</mat-label>
+        <input matInput type="text" [(ngModel)]="maxPrice" (change)="onSearchByMaxPrice(maxPrice)">
+        <span matSuffix>$</span>
+      </mat-form-field>
+      <button class="pull-right" mat-raised-button color="primary" (click)="onAdd()">
+        <mat-icon>add</mat-icon> <mat-label>New Add</mat-label>
+      </button>
+    </div>
+    <table mat-table [dataSource]="productData">
+      <!-- No Column -->
+      <ng-container matColumnDef="no">
+        <th mat-header-cell *matHeaderCellDef> <b>No</b></th>
+        <td mat-cell *matCellDef="let row; let i = index"> {{i+1}} </td>
+      </ng-container>
+      <!-- Image Column -->
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef> <b>Image</b></th>
+        <td mat-cell *matCellDef="let row; let i = index">
+          <img src="{{ row.imageUrl }}" alt="{{ row.name }}" style="width: 50px; height: 50px;">
+        </td>
+      </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> <b>Name</b></th>
+        <td mat-cell *matCellDef="let row; let i = index"> {{row.name}} </td>
+      </ng-container>
+      <!-- Category Column -->
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef> <b>Category</b></th>
+        <td mat-cell *matCellDef="let row; let i = index"> {{ row.catName }} </td>
+      </ng-container>
+      <!-- Price Column -->
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> <b>Price ($)</b></th>
+        <td mat-cell *matCellDef="let row; let i = index"> {{row.price}} </td>
+      </ng-container>
+      <!-- Action Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> <b>Action</b></th>
+        <td mat-cell *matCellDef="let row; let i = index;">
+          <button mat-icon-button color="primary" matTooltip="Edit" (click)="onEdit(row, i)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" matTooltip="Remove" (click)="onDelete(row, i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <div class="p-5 text-center text-danger" *ngIf="productData.data.length === 0">No Results to show at the moment.</div>
+    <mat-paginator [pageSizeOptions]="[10, 20, 30]"
+                   showFirstLastButtons
+                   aria-label="Select page of periodic elements">
+    </mat-paginator>
+  </div>
+</div>
